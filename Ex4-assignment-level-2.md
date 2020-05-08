@@ -13,33 +13,90 @@ let words = [
 ];
 // - Write a function findLongestWord that takes an array of words and returns the longest word from the array. (Use above array "words" to test it). If there are 2 with the same length, it should return the first occurrence.
 
+
+
 // - Convert the above array "words" into an array of length of word instead of word.
+
+let lenOfWords = words.map(word => word.length);
+console.log(lenOfWords);
+
 
 // - Create a new array that only contains word with atleast one vowel.
 
 // - Find the index of the word "rhythm"
+let indexOfRhythm = words.indexOf("rhythm");
+console.log(indexOfRhythm);
+
 
 // - Create a new array that contians words not starting with vowel.
+let vowelStart = function(word) {
+  let vowels = ["a","e","i","o","u"];
+  return vowels.includes(word[0]);
+}
+
+let vowelStart = words.filter(vowelStart);
+console.log(vowelStart);
+
 
 // - Create a new array that contianse words not ending with vowel
+let noVowelEnd = function(word) {
+  let vowels = ["a","e","i","o","u"];
+  return !vowels.includes(word[0]);
+}
+let vowelNotStart = words.filter(noVowelEnd);
+console.log(noVowelEnd);
+
+
 
 let numbers = [6, 12, 1, 18, 13, 16, 2, 1, 8, 10];
 
 // - Create a sumArray function that takes an array of number as a parameter, and calculate the sum of all its numbers
+let getSum = function(numbers) {
+  let sum = numbers.reduce((sum,number) => sum + number,0);
+  return sum;
+}
+
+console.log(getSum(numbers)); //87
+
 
 // - Make a new array that contains number multiplied by 3 like [6, 18, 27 ...]
+let tripledArray = numbers.map(number => number * 3);
+console.log(tripledArray);
+
 
 // - Create a new array that contains only even numbers
+let isEven = function(number) {
+  return number % 2 === 0;
+}
+let arrayOfEvenNums = numbers.filter(isEven);
 
 // - Create  a new array that contains only odd numbers.
+let isOdd  = function(number) {
+  return number % 2 !== 0;
+}
+let oddNos = numbers.filter(isOdd);
+console.log(oddNos);
 
 // - Create a new array that should have true for even number and false for odd numbers.
+let arrayOfBol = function(number){
+  return number % 2 ? false : true
+}
+let trueFalseArr = numbers.map(arrayOfBol);
+console.log(trueFalseArr);
+
 
 // - Sort the above number in assending order.
+let ascendingOrder = numbers.sort((a,b) => a - b);
+console.log(ascendingOrder);
 
 // - Does sort mutate the original array?
+//Yes
+
 
 // - Find the sum of the numbers in the array.
+let sum = numbers.reduce((sum,number)=> sum + number, 0);
+console.log(sum); 
+
 
 //- Write a function averageNumbers that receives an array of numbers and calculate the average of the numbers
 
@@ -69,7 +126,9 @@ let strings = [
   @return Boolean
 */
 
-// your code goes here
+let isString = function(val) {
+  return typeof val === "string";
+}
 
 // Test
 console.log(isString("tony stark")); // true;
@@ -101,7 +160,10 @@ console.log(isBlank("abc")); // false;
   @return Array
 */
 // your code goes here
-
+let stringToArray = function(text) {
+  let array = text.split(" ");
+  return array;
+}
 // Test
 console.log(stringToArray("Hello World")); // ["Robin", "Singh"];
 console.log(stringToArray("Lady Bird")); // ["Lady", "Bird"];
@@ -157,7 +219,10 @@ console.log(protect("robin_singh@example.com")); // "robin...@example.com"
   @parameter (string) str
   @return String
 */
-// your code goes here
+let parameterize = function(str) {
+  let arrOfStr = str.split(" ").map(word => word.toLowerCase());
+  return arrOfStr.join("-");
+}
 
 // Test
 console.log(parameterize("Robin Singh from USA.")); // "robin-singh-from-usa"
@@ -171,7 +236,10 @@ console.log(parameterize("Robin Singh from USA.")); // "robin-singh-from-usa"
 @parameter (string, number) text, len
 @return String
 */
-// your code goes here
+let capitalizeFirst = function(text,len) {
+  return text[0].toUpperCase() + text.slice(1);
+}
+
 
 // Test
 console.log(capitalizeFirst("js string exercises")); // "Js string exercises"
@@ -180,12 +248,13 @@ console.log(capitalizeFirst("js string exercises")); // "Js string exercises"
 - Write a JavaScript function to capitalize the first letter of each word in a string.
 
 ```js
+
 /* Requirements
   @name capitalizeWords
   @parameter (string) text
   @return String
 */
-// your code goes here
+
 console.log(capitalizeWords("js string exercises")); // "Js String Exercises"
 ```
 
@@ -243,8 +312,9 @@ console.log(uncamelize("helloWorld", "_")); // "hello_world"
   @parameter (string, number) text, times
   @return String
 */
-// your code goes here
-
+let repeat = function(text,times) {
+  return text.repeat(times);
+}
 // Test
 console.log(repeat("Ha!", 3)); // "Ha!Ha!Ha!"
 ```
@@ -257,7 +327,9 @@ console.log(repeat("Ha!", 3)); // "Ha!Ha!Ha!"
   @parameter (string, number) text, position
   @return String
 */
-// your code goes here
+let insert = function(text,insertStr,position) {
+  return text.slice(0,position) + insertStr + text.slice(position);
+}
 
 // Test
 console.log(insert("We are doing some exercises.", "JavaScript ", 18)); // "We are doing some JavaScript exercises."
@@ -302,7 +374,13 @@ console.log(textTruncate("We are doing JS string exercises.", 15, "!!")); //"We 
   @parameter (string, number) text, size
   @return String
 */
-// your code goes here
+let stringChop = function(text,size) {
+  let chops = [];
+  for(let i = 0; i < text.length / size; i++) {
+    chops.push(text.slice(size * i, size * i + size))
+  }
+  return chops;
+}
 
 // Test
 console.log(stringChop("hello world", 2)); // ["he", "ll", "o ", "wo", "rl", "d"]
@@ -330,7 +408,9 @@ console.log(count("The quick brown fox jumps over the lazy dog", "the")); // 2
   @parameter (string) text
   @return String
 */
-
+let strip = function(text) {
+  return text.trim();
+}
 // Test
 console.log(strip("   Hello World ")); // "Hello World"
 ```
@@ -356,7 +436,9 @@ console.log(chopWords("The quick brown fox jumps over the lazy dog", 4)); // "Th
   @parameter (string, number) text, times
   @return String
 */
-
+let alphabetize = function(text,times) {
+  return text.split("").sort().join("").trim();
+}
 // Test
 console.log(alphabetize("United States")); // 'SUadeeinsttt'
 ```
